@@ -5,6 +5,7 @@ const cors = require('cors');
 const patientRoutes = require('../backend/routes/patient.routes');
 const vitalRoutes = require('../backend/routes/vital.routes');
 const staffRoutes = require('../backend/routes/staff.routes');
+const { itemsPool } = require('./config/dbConfig');
 
 const app = express();
 

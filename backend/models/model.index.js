@@ -1,11 +1,23 @@
-const dbConfig = require('../config/dbConfig');
+const { localdbConfig, onlinedbConfig, itemsPool } = require('../config/dbConfig'); //for local testing
+
 
 const { Sequelize } = require('sequelize');
 
-const _sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-    host: dbConfig.HOST,
-    dialect: dbConfig.dialect
+// local testing
+// const _sequelize = new Sequelize(localdbConfig.DB, localdbConfig.USER, localdbConfig.PASSWORD, {
+//     host: localdbConfig.HOST,
+//     dialect: localdbConfig.dialect
+// });
+
+const _sequelize = new Sequelize(onlinedbConfig.DB, onlinedbConfig.USER, onlinedbConfig.PGPASSWORD, {
+  host: onlinedbConfig.HOST,
+  dialect:localdbConfig.dialect,
+  dialectOptions: {
+    ssl: true,
+    native: true
+  },
 });
+
 
   const testDbConnection = async () => {
     try {
