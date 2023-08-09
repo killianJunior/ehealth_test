@@ -64,6 +64,8 @@
   import { defineComponent } from "vue";
   import type Patient from "@/types/patient";
   import axios from "axios";
+  import { useNotification } from "@kyvg/vue3-notification";
+
    
 export default defineComponent({
     name: "RegisterPatient",
@@ -87,11 +89,18 @@ export default defineComponent({
         console.log(data);
         // I am Hard coding the route directly here
         const path = 'http://localhost:5000/api/patients/new_patient';
+        const notification = useNotification()
+
         axios 
         .post(path, data)
           .then(() => {
-            console.log(data)
+            // console.log(data)
           })
+          notification.notify({
+            type: "success",
+            title: "Patient Registration",
+            text: "Patient has been successfully registered!",
+          });
           this.$router.push({ name: 'Patients' })
           .catch((error) => {
             console.log(error);

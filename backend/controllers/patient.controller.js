@@ -4,6 +4,12 @@ const Op = db.Sequelize.Op;
 
 // Register a Patient
 const registerPatient = async (req, res) => {
+  if(!req.body.id) {
+    res.status(400).send({
+        message: "Content cannot be empty!"
+    })
+    return;
+}
   try {
     const patient = {
       patient_fullname: req.body.patient_fullname,

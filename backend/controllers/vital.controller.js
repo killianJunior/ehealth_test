@@ -3,6 +3,13 @@ const Vitals = db.vitals;
 
 // Create a Patient Vitals
 const takeVitals = async (req, res) => {
+   
+    if(!req.body.core_temperature) {
+        res.status(400).send({
+            message: "Content cannot be empty!"
+        })
+        return;
+    }
     try {
     const vitals = {
         core_temperature: req.body.core_temperature,

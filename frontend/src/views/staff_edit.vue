@@ -48,7 +48,7 @@
                   </div>
                   
                    <hr/>
-                    <button @click="newStaff" class="btn btn-primary">Add</button>
+                    <button @click="newStaff" class="btn btn-primary ml-3">Add</button>
                   </form>
               </div>
 
@@ -65,6 +65,8 @@
       import { defineComponent } from "vue";
       import type Staff from "@/types/staff";
       import StaffService from "@/services/staff.service";
+      import { useNotification } from "@kyvg/vue3-notification";
+
        
     export default defineComponent({
         name: "AddStaff",
@@ -84,12 +86,18 @@
                 role: this.staff.role,
                 id: this.staff.id
             }
+            const notification = useNotification()
             //I am using a service here
             StaffService.newStaff(data)
               .then(() => {
-                console.log(data)
               })
+              notification.notify({
+                type: "success",
+                title: "Staff",
+                text: "Staff added successfully!",
+              });
               this.$router.push({ name: 'Patients' })
+              
               .catch((error) => {
                 console.log(error);
               })

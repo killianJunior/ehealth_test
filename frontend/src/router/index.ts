@@ -9,8 +9,14 @@ import Patient from "../views/patient.vue";
 const router = createRouter({
   history: createWebHistory(),
   routes: [
+    //When the app loads take me to the new staff view
     {
       path: '/',
+      name: 'new staff',
+      component: AddStaff
+    },
+    {
+      path: '/patients',
       name: 'Patients',
       component: Patients
     },
@@ -18,11 +24,6 @@ const router = createRouter({
       path: '/new_patient',
       name: 'new patient',
       component: RegisterPatient
-    },
-    {
-      path: '/new_staff',
-      name: 'new staff',
-      component: AddStaff
     },
     {
       path: '/new_patient_vitals/:id',

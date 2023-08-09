@@ -4,6 +4,12 @@ const Op = db.Sequelize.Op;
 
 //Adds a staff
 const addStaff = async (req, res) => {
+  if(!req.body.id) {
+    res.status(400).send({
+        message: "Content cannot be empty!"
+    })
+    return;
+  }
     try {
         const staff = {
         staff_name: req.body.staff_name,

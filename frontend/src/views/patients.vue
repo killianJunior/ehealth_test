@@ -28,7 +28,6 @@
             Patients List
           </div>
           <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
 
             <table v-if="patients.length != 0" class="table table-bordered table responsive">
               <thead class="thead-dark">
@@ -107,7 +106,11 @@
       </div>
 
     </div>
-   
+
+    <div class="alert alert-light" role="alert">
+      Due to time contraint, I am unable to manage certain states properly: If changes do not reflect, please hit this button! 
+      <span @click="reloadPage" class="btn btn-info">Reload</span>
+    </div>
 
 </template>
 
@@ -131,7 +134,7 @@ export default defineComponent({
         patient_fullname: "",
         current_patient: {} as Patient,
         isSearch: false,
-        noMatchingRecords: false
+        noMatchingRecords: false,
       };
     },
     methods: {
@@ -183,6 +186,8 @@ export default defineComponent({
           })
       },
     },
+
+
     mounted() {
       this.allPatients();
       this.allStaff();

@@ -29,6 +29,12 @@ app.use(express.json());
 // app.use(bodyParser.urlencoded({ extended: true}));
 
 //Routes
+app.get("/", (req, res) => {
+    res.json({
+        title:"E-Health Test Case",
+        message: "Killian's Express test application"
+    });
+});
 app.use("/api/patients", patientRoutes);
 app.use("/api/vitals", vitalRoutes);
 app.use("/api/staff", staffRoutes)

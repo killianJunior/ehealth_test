@@ -8,7 +8,9 @@
                     <p class="card-text">Card Number: {{ patient.id }}</p>
                     <p class="card-text">Contact: {{ patient.contact_number }}</p>
                     
-                    <a v-if="patient.vitals.length != 0" class="btn btn-primary">Take More Vitals</a>
+                    <router-link :to="'/new_patient_vitals/' + patient.id">
+                      <a v-if="patient.vitals.length != 0" class="btn btn-primary">Take More Vitals</a>
+                    </router-link>
                 </div>
                 <div class="card-footer">
                     <p>{{ patient.patient_fullname }} currently has <span class="badge rounded-pill text-bg-warning">{{ patient.vitals.length }}</span>
@@ -58,6 +60,10 @@
         </div>
     </div>
 
+    <div class="alert alert-light" role="alert">
+      Due to time contraint, I am unable to manage certain states properly: If changes do not reflect, please hit this button! 
+      <span @click="reloadPage" class="btn btn-info">Reload</span>
+    </div>
 
 </template>
 
@@ -87,7 +93,11 @@ export default defineComponent({
           .catch((e: Error) => {
             console.log(e);
           })
-      }
+      },
+
+      reloadPage() {
+      window.location.reload();
+    },
 
     },
     mounted() {

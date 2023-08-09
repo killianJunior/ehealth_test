@@ -54,7 +54,18 @@
 
             </div>
 
-            <button @click="takeVitals" class="btn btn-primary">Take Vitals</button>
+            <hr/>
+
+              <div class="btn-group mr-2">
+                <button @click="takeVitals" class="btn btn-primary">Take Vitals</button>
+              </div>
+
+              <div class="btn-group mr-2">
+                <router-link :to="'/patient/' + $route.params.id">
+                  <button @click="takeVitals" class="btn btn-light">Cancel</button>
+                </router-link>
+              </div>
+
           </form>
         </div>
        </div>
@@ -70,6 +81,7 @@
       import { defineComponent } from "vue";
       import type Vitals from "@/types/vital";
       import  axios  from "axios";
+      import { useNotification } from "@kyvg/vue3-notification";
        
     export default defineComponent({
         name: "RegisterPatientVitals",
@@ -97,15 +109,20 @@
               id: this.generateId(5)
             }
             const path = 'http://localhost:5000/api/vitals/new_patient_vital';
-            console.log(data);
+            const notification = useNotification()
               axios.post(path, data)
                 .then(() => {
-                  console.log(data)
                 })
+                notification.notify({
+                  type: "success",
+                  title: "Patient Vitals",
+                  text: "Patient Vitals Redcorded!",
+                });
                 this.$router.push(`/patient/${this.$route.params.id}`)
                 .catch((error) => {
-                  console.log(error);
+                 console.log(error)
                 })
+                
             },
 
             generateId(data:any){

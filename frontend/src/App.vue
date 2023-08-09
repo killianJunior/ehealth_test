@@ -1,5 +1,37 @@
-<script setup lang="ts">
+<script lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+
+import type Staff from "@/types/staff";
+import StaffService from "@/services/staff.service";
+import { defineComponent } from 'vue';
+import type ResponseData from './types/response-data';
+
+
+export default defineComponent({
+    name: "App",
+    data() {
+      return {
+        staffs: [] as Staff[],
+      };
+    },
+    methods: {
+    
+    allStaff() {
+        StaffService.allStaff()
+          .then((response: ResponseData) => {
+            this.staffs = response.data;
+            console.log(response.data)
+          })
+          .catch((e: Error) => {
+            console.log(e);
+          })
+      },
+    },
+    mounted() {
+      this.allStaff();
+    }
+  });
+
 </script>
 
 <template>
@@ -12,11 +44,11 @@ import { RouterLink, RouterView } from 'vue-router'
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <router-link to="/" class="nav-link active" aria-current="page">Patients</router-link>
+                <li v-if="staffs.length != 0" class="nav-item">
+                  <router-link to="/patients" class="nav-link active" aria-current="page">Patients</router-link>
                 </li>
                 <li class="nav-item">
-                  <router-link to="/new_staff" class="nav-link">New Staff</router-link>
+                  <router-link to="/" class="nav-link">New Staff</router-link>
                 </li>
               </ul>
             </div>
@@ -25,7 +57,10 @@ import { RouterLink, RouterView } from 'vue-router'
     </div>
 
   <RouterView />
+  <notifications position="bottom right"/>
+
 </template>
+
 
 <style>
 

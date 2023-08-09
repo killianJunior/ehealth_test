@@ -4,7 +4,7 @@ import http from '../http.common';
 class VitalsService {
     
 newVitals(data: any): Promise<any> {
-    return http.post('/new_patient_vitals', data);
+    return http.post('/new_patient_vital', data);
     }
 
 allVitals(): Promise<any> {
